@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Language" content="fr">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="Fztheman/Azerom">
+		<title>Wow Calendar</title>
+	</head>
+  	<body>
+	  	<p>Vous essayer de récuperer votre mot de passe</p>
+	  	<p>Vous en êtes a l'étape {{ etape }}</p>
+
+	  	{% if etape == "2" %}
+			<div class="container">
+
+				<form method="Post" class="form-horizontal col-sm-6">
+				
+					<div class="form-group" id="mdp-group">
+
+						<label for="mdp" class="control-label">Nouveau mot de passe</label>
+
+							<input id="mdp" type="password" name="new_password" class="form-control" data-animation="false" data-trigger="manual" data-container="body" data-toggle="popover" data-placement="right" data-content="Mot de passe incorrect"/>
+
+					</div>
+
+					<div class="form-group" id="confirm-group">
+
+						<label for="confirm" class="control-label">Confirmation du mot de passe</label>
+
+						<input id="confirm" type="password" name="new_password_confirm" class="form-control" data-animation="false" data-trigger="manual" data-container="body" data-toggle="popover" data-placement="right" data-content="Mots de passe différents"/>
+
+					</div>
+
+					<input type="hidden" name="pseudo" value="'.$rep_verif["username"].'">
+
+					<div>
+
+						<button type="submit" value="valider" class="btn btn-primary" name="submit_recup">Envoie</button>
+
+	  				</div>
+	  			</form>
+
+			</div> <!-- /container -->
+		{% elseif etape == "1" %}
+ 			<p>Le mail a (Enfait pas du tout) été envoyé</p>
+ 		{% endif %}
+
+ 		
+  	</body>
+</html>

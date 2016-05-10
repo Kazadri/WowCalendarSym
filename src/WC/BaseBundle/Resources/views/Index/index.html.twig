@@ -1,0 +1,39 @@
+{% extends "WCBaseBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block navigation %}{{ parent() }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+    <div class="container">
+	    <h1>Bienvenue sur Wow-Calendar</h1>
+		<p>
+			Wow-calendar est, en plus d'être un calendrier, un utilitaire pour monter facilement ses raids à l'avance.
+		</p>
+		<p>
+			En effet le site vous permettra de référencer non seulement les membres de votre guilde, mais également une liste de "PU réguliers".
+		</p>
+		<p>
+			Une fois votre événement créé (raid - sortie pvp - RP), vous pourrez les inviter d'un seul coup, sans aucune restriction.
+		</p>
+		<p>
+		    Plus de problème pour inviter un joueur s'il ne fait pas partie de votre groupement de serveur !
+		</p>
+		<p>
+			Le site étant encore récent, de nombreuses améliorations sont encore à prévoir, alors n'hésitez pas à envoyer vos idées d'améliorations par mail à wow.calendar.fa@gmail.com.
+		</p>
+		<p>
+			Bonne visite !
+		</p>
+
+		 <div class="col-sm-6 hidden-xs">
+                <img class="img-responsive center-block" src="{{ asset('bundles/wcbase/img/capture_guilde.png') }}" alt="Gestions des guildes">
+            </div>
+             <div class="col-sm-6 hidden-xs">
+                <img class="img-responsive center-block" src="{{ asset('bundles/wcbase/img/capture_evenement.png') }}" alt="Gestions des événements">
+            </div>
+	</div>
+
+{% endblock %}

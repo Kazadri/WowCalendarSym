@@ -1,0 +1,40 @@
+{% extends "WCBaseBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block navigation %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1 class="page-header">{{ guild.name }}</h1>
+        <h2 class="page-header">Membre</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id='table_membre'>
+                <thead>
+                <tr>
+                    <td>Nom du personnage</td>
+                    <td>Classe</td>
+                    <td>Armurie</td>
+                    <td>Rang</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for character in characters %}
+                        <tr>
+                            <td class="nom">{{ character.name }}</td>
+                            <td class="Classe">{{ character.class }}</td>
+                            <td class="Armurie"><a href="{{ 'http://eu.battle.net/wow/fr/character/' + character.server + '/' + character.name + '/simple' }}" target="_blank">Lien</a></td>
+                            <td class="rang">{{ character.rank }}</td>
+                            {% if character in myCharacters %}
+                                <td><i class="fa fa-cog IconeOptionModal"></i></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

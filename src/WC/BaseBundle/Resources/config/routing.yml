@@ -1,0 +1,11 @@
+wc_index_base:
+    path:     /
+    defaults: { _controller: WCBaseBundle:Index:index }
+
+wc_index_recuperation:
+    path:      /recuperation/{token}
+    defaults:
+        _controller: WCBaseBundle:Index:recuperation
+        token:       
+
+        

@@ -1,0 +1,9 @@
+wc_character_add:
+    path:      /perso/add
+    defaults:
+        _controller: WCUserBundle:Character:add
+
+wc_character_list:
+    path:      /perso
+    defaults:
+        _controller: WCUserBundle:Character:list

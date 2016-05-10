@@ -1,0 +1,45 @@
+{% extends "WCUserBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'bundles/wcuser/css/characters.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block navigation %}{{ parent() }}{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+    <div class="container">
+        <h1>Liste de vos personnages</h1>
+        <div class="table-responsive"><table class="table table-hover">
+            <thead>
+            <TR>
+                <TH>Nom</TH>
+                <TH>Serveur</TH>
+                <TH class="pull-right">Supprimer</TH>
+            </TR>
+            </thead>
+            <tbody>
+            {% for character in listCharacters %}
+                <TR>
+                    <TD>{{ character.name }}</TD>
+                    <TD>{{ character.server }}</TD>
+                    <TD>
+                        {% image '@WCUserBundle/Resources/public/img/croix.png' %}
+                            <img class="img-responsive pull-right" src="{{ asset_url }}" alt="Supprimer" />
+                        {% endimage %}
+                    </TD>
+                </TR>
+            {% endfor %}
+            </tbody>
+        </table></div>
+    </div>
+
+    <div class="container">
+        {{ include("WCUserBundle:Characters:add.html.twig") }}
+    </div>
+
+{% endblock %}

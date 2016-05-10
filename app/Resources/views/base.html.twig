@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Language" content="fr">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Fztheman/Azerom">
+        <title>{% block title %}Wow Calendar{% endblock %}</title>
+        {% stylesheets
+            'bundles/wcbase/css/general.css'
+            'bundles/wcbase/css/navigation.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="https://use.fontawesome.com/3f6e2efe04.js"></script>
+        {% endblock %}
+    </head>
+    <body>
+        {% block navigation %}
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('wc_index_base') }}"><img src="{{ asset('bundles/wcbase/img/logo.png') }}" alt="WoW Calendar" height="40"/></a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <ul class="nav navbar-nav">
+                        <li><a href="">Calendrier</a></li>
+                        <li><a href="{{ path('wc_character_list') }}">Mes personnages</a></li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                    {% endif %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="btn-group" role="group" aria-label="...">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                            {% else %}
+                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_login') }}">Connexion</a><i class="fa fa-sign-in"></i>
+                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_registration_register') }}">Inscription</a><i class="fa fa-user-plus"></i>
+                            {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+</html>

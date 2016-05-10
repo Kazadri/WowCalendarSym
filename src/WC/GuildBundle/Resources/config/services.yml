@@ -1,0 +1,4 @@
+services:
+#    wc_guild.example:
+#        class: WC\GuildBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

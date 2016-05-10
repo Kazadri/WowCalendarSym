@@ -1,0 +1,13 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets filter='cssrewrite' 'bundles/wcuser/css/inscription.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
+{% endblock stylesheets %}
+{% block navigation %}{{ parent() }}{% endblock %}
+{% block body %}
+	{% block fos_user_content %}
+		{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+	{% endblock fos_user_content %}
+{% endblock body %}

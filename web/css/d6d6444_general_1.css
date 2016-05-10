@@ -1,0 +1,34 @@
+#footer {
+    background: none repeat scroll 0% 0% #0B0B0B;
+    padding-bottom: 100px;
+    padding-top: 45px;
+	margin-top: 45px;
+}
+#footer h2 {
+    font-size: 1.45em;
+    text-align: left;
+    color: #FBFBFB;
+    font-weight: 300;
+    margin: 0px 0px 20px;
+    letter-spacing: 0.3px;
+	margin-left: 10px;
+}
+#footer span {
+    color: #FBFBFB;
+	margin-left: 15px;
+}
+#footer p {
+    font-size: 1.1em;
+    color: #848483;
+    margin: 0px 0px 5px;
+	margin-left: 15px;
+}
+#footer img {
+	margin-right: 15px;
+}
+#footer cod-md-2 {
+	padding: 0px 5px 0px;
+}
+#cpsq-logo {
+	margin-right: 15px;
+}
