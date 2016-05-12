@@ -1,0 +1,69 @@
+{% extends "WCBaseBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }} - Recherche de guilde{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'bundles/wcguild/css/guild.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block navigation %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="container flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <h1 class="page-header">Recherche d'une guilde</h1>
+        <h2 class="page-header">Liste des demandes en cours</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id='table_demande'>
+                <thead>
+                    <tr>
+                        <td>Nom du personnage</td>
+                        <td>Server</td>
+                        <td>Guilde</td>
+                        <td>Etat</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for character in listDemand %}
+                    <tr>
+                        <td class="nom">{{ character.name }}</td>
+                        <td class="Classe">{{ character.server }}</td>
+                        <td class="guild">{{ character.guild.name }}</td>
+                        <td class="rang">{{ character.rank }}</td>
+                        <td>
+                            {% image '@WCGuildBundle/Resources/public/img/croix.png' %}
+                                <img src="{{ asset_url }}" alt="Refuser" />
+                            {% endimage %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h2 class="page-header">Demande</h2>
+        {% if formGuild is defined %}
+            <h3><small>Une seule demande par personnage</small></h3>
+            {{ form_start(formGuild) }}
+            {{ form_errors(formGuild) }}
+
+            {{ form_row(formGuild.name) }}
+            {{ form_row(formGuild.server) }}
+            {{ form_row(formGuild.Personnage) }}
+            {{ form_end(formGuild) }}
+        {% else %}
+            <h3><small>Vous n'avez aucun personnage sans guilde</small></h3>
+       {% endif %}
+    </div>
+{% endblock %}

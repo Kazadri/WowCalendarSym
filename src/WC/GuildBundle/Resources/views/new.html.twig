@@ -1,0 +1,35 @@
+{% extends "WCBaseBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'bundles/wcguild/css/guild.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block navigation %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="container flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <h1>Référencement d'une nouvelle guilde</h1>
+        <h2><small>Il vous faudra rendre un de vos personnage "chef" de la guilde, mais vous pourrez à tout moment léguer le lead à un autre personnage</small></h2>
+        {{ form_start(formGuild) }}
+        {{ form_errors(formGuild) }}
+
+        {{ form_row(formGuild.name) }}
+        {{ form_row(formGuild.server) }}
+        {{ form_row(formGuild.Chef) }}
+        {{ form_end(formGuild) }}
+    </div>
+{% endblock %}

@@ -22,14 +22,7 @@ class CharacterController extends Controller
             ->findBy(array('user' => $user));
 
         //Liste des serveurs
-        $bNet = new Bnet\ClientFactory($this->getParameter('bnetkey'));
-        $armory = $bNet->warcraft(new Bnet\Region("eu"));
-        $realms = $armory->realms()->all();
-        $realmsName = array();
-        foreach ($realms as $realm) {
-            $realmsName[$realm->__get('name')] = $realm->__get('name'); //Texte affiché => Valeur
-        }
-        $realmsName['Suramar'] = 'Suramar'; //Ajout du serveur manquant
+        $realmsName = $this->get('wc_user.bnet')->getAllRealms($this->getParameter('bnetKey'));
         //var_dump($realmsName);
         
         //Cree le formulaire de création de nouveaux personnages
@@ -50,11 +43,9 @@ class CharacterController extends Controller
         //Validation des données
         $form->handleRequest($request);
         if ($form->isValid()) { //Soit request est de type Post + est valide
-            $existingCharacter = $armory->characters()
-                ->on($character->getServer())
-                ->find($character->getName());
-            if ($existingCharacter != null) {
+            if ($this->get('wc_user.bnet')->characterIsValid($this->getParameter('bnetKey'), $character->getName(), $character->getServer())) {
                 $character->setUser($user);
+                $character->setClass($this->get('wc_user.bnet')->getClass($this->getParameter('bnetKey'), $character->getName(), $character->getServer()));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($character);
                 $em->flush();

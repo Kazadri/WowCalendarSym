@@ -35,9 +35,8 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <ul class="nav navbar-nav">
-                        <li><a href="">Calendrier</a></li>
                         <li><a href="{{ path('wc_character_list') }}">Mes personnages</a></li>
-                        <li><a href="">Contact</a></li>
+                        {{ render(controller("WCGuildBundle:Guild:menu")) }}
                     </ul>
                     {% endif %}
                     <ul class="nav navbar-nav navbar-right">
@@ -46,8 +45,8 @@
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
                             {% else %}
-                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_login') }}">Connexion</a><i class="fa fa-sign-in"></i>
-                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_registration_register') }}">Inscription</a><i class="fa fa-user-plus"></i>
+                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_login') }}">Connexion <i class="fa fa-sign-in"></i></a>
+                                <a class="btn btn-default navbar-btn" href="{{ path('fos_user_registration_register') }}">Inscription <i class="fa fa-user-plus"></i></a>
                             {% endif %}
                             </div>
                         </li>
@@ -57,6 +56,26 @@
         </nav>
     {% endblock %}
         {% block body %}{% endblock %}
+        {% block footer %}
+            <div id="footer" class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <h2>Contacter Nous</h2>
+                        <span>Mail: wow.calendar.fa@gmail.com</span>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                        <h2>Partenaire de</h2>
+                        <div id="cpsq-logo">
+                            {% image '@WCBaseBundle/Resources/public/img/logo_cpsq.png' %}
+                                <img class="img-responsive center-block" src="{{ asset_url }}" alt="Chess Panda Squad" />
+                            {% endimage %}
+                        </div>
+                    </div>
+                    <div class="col-sm-2 hidden-xs">
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

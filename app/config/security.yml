@@ -11,9 +11,12 @@ security:
       id: fos_user.user_provider.username
 
   firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
     main:
       pattern:   ^/
-      anonymous: true
+      anonymous: ~
       form_login:
         login_path: fos_user_security_login
         check_path: fos_user_security_check
@@ -24,5 +27,8 @@ security:
         secret:     %secret%
 
   access_control:
-
-    #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/, roles: ROLE_USER }

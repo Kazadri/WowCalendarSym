@@ -75,6 +75,6 @@ fos_user:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ FOSUserBundle, WCUserBundle ]
+    bundles:        [ FOSUserBundle, WCUserBundle, WCBaseBundle, WCGuildBundle ]
     filters:
         cssrewrite: ~

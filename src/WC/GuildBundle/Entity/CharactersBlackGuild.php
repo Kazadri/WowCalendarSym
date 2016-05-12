@@ -29,13 +29,13 @@ class CharactersBlackGuild
     private $why;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WC\UserBundle\Entity\Characters")
+     * @ORM\ManyToOne(targetEntity="WC\UserBundle\Entity\Characters", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $characters;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WC\GuildBundle\Entity\Guild")
+     * @ORM\ManyToOne(targetEntity="WC\GuildBundle\Entity\Guild", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $guilds;

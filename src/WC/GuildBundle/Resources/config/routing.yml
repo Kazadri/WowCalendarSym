@@ -1,3 +1,9 @@
 wc_guild_homepage:
     path:     /guilde/{server}/{name}
     defaults: { _controller: WCGuildBundle:Guild:list }
+wc_guild_new:
+    path:     /guilde/new
+    defaults: { _controller: WCGuildBundle:Guild:new }
+wc_guild_ask:
+    path: /guilde/ask
+    defaults: { _controller: WCGuildBundle:Guild:ask }

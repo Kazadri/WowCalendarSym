@@ -2,11 +2,31 @@
 
 
 {% block title %}{{ parent() }} - Index{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite' 'bundles/wcguild/css/guild.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
 {% block navigation %}{{ parent() }}{% endblock %}
 
 {% block body %}
     {{ parent() }}
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="container flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    {% set droit = "none" %}
+    {% for myCharacter in myCharacters %}
+        {% if myCharacter.rank == "Chef" %}
+            {% set droit = "Chef" %}
+        {% endif %}
+    {% endfor %}
     <div class="container">
         <h1 class="page-header">{{ guild.name }}</h1>
         <h2 class="page-header">Membre</h2>
@@ -23,18 +43,146 @@
                 </thead>
                 <tbody>
                     {% for character in characters %}
+                        {% set link = "http://eu.battle.net/wow/fr/character/" ~ character.server ~ "/" ~ character.name ~ "/simple" %}
                         <tr>
                             <td class="nom">{{ character.name }}</td>
                             <td class="Classe">{{ character.class }}</td>
-                            <td class="Armurie"><a href="{{ 'http://eu.battle.net/wow/fr/character/' + character.server + '/' + character.name + '/simple' }}" target="_blank">Lien</a></td>
+                            <td class="Armurie"><a href="{{ link }}">Lien</a></td>
                             <td class="rang">{{ character.rank }}</td>
-                            {% if character in myCharacters %}
-                                <td><i class="fa fa-cog IconeOptionModal"></i></td>
+                            <td align="center">
+                            {% if droit == "Chef" %}
+                                {% if character.rank != "Demande" %}
+                                    <i class="fa fa-cog IconeOptionModal"></i></td>
+                                {% else %}
+                                        {% image '@WCGuildBundle/Resources/public/img/valider.png' %}
+                                            <img src="{{ asset_url }}" alt="Accepter" />
+                                        {% endimage %}
+                                        {% image '@WCGuildBundle/Resources/public/img/croix.png' %}
+                                            <img src="{{ asset_url }}" alt="Refuser" />
+                                        {% endimage %}
+                                {% endif %}
+                            {% elseif character in myCharacters %}
+                                <i class="fa fa-cog IconeOptionModal"></i>
                             {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+        {% if droit == "Chef" %}
+            <div>
+                <h3>Ajout d'un nouveau membre</h3>
+                {{ form_start(formMember) }}
+                {{ form_errors(formMember) }}
+
+                {{ form_row(formMember.name) }}
+                {{ form_row(formMember.server) }}
+                {{ form_end(formMember) }}
+            </div>
+        {% endif %}
+        <br/>
+        <h2 class="page-header">PU</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="guilde_pu">
+                <thead>
+                <tr>
+                    <td>Nom du personnage</td>
+                    <td>Classe</td>
+                    <td>Armurie</td>
+                    <td>Etat</td>
+                    <td>Action</td>
+                    <td style="display: none;"></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pu in listPu %}
+                    {% set link = "http://eu.battle.net/wow/fr/character/" ~ pu.characters.server ~ "/" ~ pu.characters.name ~ "/simple" %}
+                    <td class="nom">{{ pu.characters.name }}</td>
+                    <td class="Classe">{{ pu.characters.class }}</td>
+                    <td class="Armurie"><a href="{{ link }}">Lien</a></td>
+                    <td class="etat">{{ pu.state }}</td>
+                    <td class="action">
+                    {% if droit == "Chef" %}
+                        {% if pu.state != "Demande" %}
+                            {% image '@WCGuildBundle/Resources/public/img/croix.png' %}
+                                <img src="{{ asset_url }}" alt="Refuser" />
+                            {% endimage %}
+                        {% else %}
+                            {% image '@WCGuildBundle/Resources/public/img/valider.png' %}
+                                <img src="{{ asset_url }}" alt="Accepter" />
+                            {% endimage %}
+                            {% image '@WCGuildBundle/Resources/public/img/croix.png' %}
+                                <img src="{{ asset_url }}" alt="Refuser" />
+                            {% endimage %}
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <h2 class="page-header">Black Liste</h2>
+        <div class="table-responsive"><table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <td>Nom du personnage</td>
+                    <td>Serveur du personnage</td>
+                    <td>Raison</td>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for black in blackList %}
+                        <tr>
+                            <td class="nom">{{ black.characters.name }}</td>
+                            <td class="serveur">{{ black.characters.server }}</td>
+                            <td class="raison">{{ black.why }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if droit == "Chef" %}
+            <div>
+                <h3>Rajouter un personnage dans la BlackListe <small>(Attention, tous les autres personnages de cette personne ne pourront plus rejoindre votre liste de PU)</small></h3>
+                {{ form_start(formBlack) }}
+                {{ form_errors(formBlack) }}
+
+                {{ form_row(formBlack.Name) }}
+                {{ form_row(formBlack.Server) }}
+                {{ form_end(formBlack) }}
+            </div>
+        {% endif %}
+            <!--<br/>
+            <h1 class="page-header">Guildes externes</h1>
+            <h2 class="page-header">Liste</h2>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <td>Guilde</td>
+                        <td>Etat</td>
+                        <td>Action</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for pu in myPu %}
+                            <tr>
+                                <td class="nom">{{ pu.guilds.name }}</td>
+                                <td class="etat">{{ pu.state }}</td>
+                                <td class="action">
+                                    {% image '@WCGuildBundle/Resources/public/img/croix.png' %}
+                                        <img src="{{ asset_url }}" alt="Refuser" />
+                                    {% endimage %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h3>Pour faire partie de la liste des PU d'une guilde, rentrer le nom de cette dernière ici</h3>
+
+        </div>-->
     </div>
 {% endblock %}

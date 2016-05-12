@@ -3,6 +3,7 @@
 namespace WC\GuildBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use WC\UserBundle\Entity\Characters;
 
 /**
  * CharactersPuGuild
@@ -29,13 +30,13 @@ class CharactersPuGuild
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WC\UserBundle\Entity\Characters")
+     * @ORM\ManyToOne(targetEntity="WC\UserBundle\Entity\Characters", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $characters;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WC\GuildBundle\Entity\Guild")
+     * @ORM\ManyToOne(targetEntity="WC\GuildBundle\Entity\Guild", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $guilds;
@@ -120,5 +121,9 @@ class CharactersPuGuild
     public function getGuilds()
     {
         return $this->guilds;
+    }
+
+    public function __construct(){
+        $this->setCharacters(new Characters());
     }
 }

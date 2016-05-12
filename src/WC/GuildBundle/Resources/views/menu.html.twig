@@ -1,0 +1,15 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guilde <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        {% if listGuild is defined %}
+            {% for guild in listGuild %}
+                <li><a href="{{ path('wc_guild_homepage', {'server': guild.server, 'name': guild.name}) }}">{{ guild.name ~ "/" ~ guild.server }}</a></li>
+            {% endfor %}
+        {% endif %}
+        {% if without == true %}
+        <li role="separator" class="divider"></li>
+            <li><a href="{{ path('wc_guild_new') }}">Créer une guilde</a></li>
+            <li><a href="{{ path('wc_guild_ask') }}">Rechercher une guilde</a></li>
+        {% endif %}
+    </ul>
+</li>
