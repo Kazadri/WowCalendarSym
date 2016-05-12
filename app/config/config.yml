@@ -80,3 +80,6 @@ assetic:
     bundles:        [ FOSUserBundle, WCUserBundle, WCBaseBundle, WCGuildBundle ]
     filters:
         cssrewrite: ~
+
+fos_js_routing:
+     routes_to_expose: [ (.*) ]

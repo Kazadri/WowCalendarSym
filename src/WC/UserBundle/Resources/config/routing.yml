@@ -3,6 +3,13 @@ wc_character_add:
     defaults:
         _controller: WCUserBundle:Character:add
 
+wc_character_remove:
+    path:      /characters/remove
+    defaults:
+        _controller: WCUserBundle:Character:remove
+    options:
+        expose: true
+
 wc_character_list:
     path:      /characters
     defaults:

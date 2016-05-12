@@ -30,13 +30,13 @@ class CharactersBlackGuild
 
     /**
      * @ORM\ManyToOne(targetEntity="WC\UserBundle\Entity\Characters", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $characters;
 
     /**
      * @ORM\ManyToOne(targetEntity="WC\GuildBundle\Entity\Guild", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $guilds;
 

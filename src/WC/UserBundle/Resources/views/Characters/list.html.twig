@@ -14,7 +14,7 @@
 	{{ parent() }}
     <div class="container">
         <h1>Liste de vos personnages</h1>
-        <div class="table-responsive"><table class="table table-hover">
+        <div class="table-responsive"><table class="table table-hover" id="table-characters">
             <thead>
             <TR>
                 <TH>Nom</TH>
@@ -25,9 +25,9 @@
             <tbody>
             {% for character in listCharacters %}
                 <TR>
-                    <TD>{{ character.name }}</TD>
-                    <TD>{{ character.server }}</TD>
-                    <TD>
+                    <TD class="name">{{ character.name }}</TD>
+                    <TD class="server">{{ character.server }}</TD>
+                    <TD class="remove">
                         {% image '@WCUserBundle/Resources/public/img/croix.png' %}
                             <img class="img-responsive pull-right" src="{{ asset_url }}" alt="Supprimer" />
                         {% endimage %}
@@ -41,5 +41,17 @@
     <div class="container">
         {{ include("WCUserBundle:Characters:add.html.twig") }}
     </div>
+    <div id="dialog-confirm" title="Etes vous sur ?" style="display:none;">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Votre personnage sera aussi ejecté de sa guilde et de ses événements.</p>
+    </div>
 
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@WCUserBundle/Resources/public/js/ajax.js'
+    'bundles/fosjsrouting/js/router.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock javascripts %}

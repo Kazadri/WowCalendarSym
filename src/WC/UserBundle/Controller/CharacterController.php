@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Pwnraid\Bnet;
 use WC\UserBundle\Entity\Characters;
 
@@ -65,5 +66,23 @@ class CharacterController extends Controller
             'WCUserBundle:Characters:list.html.twig',
             array('listCharacters' => $listCharacters, 'formCreateCharacter' => $form->createView())
         );
+    }
+
+    public function removeAction(Request $request){
+        if($request->isXmlHttpRequest())
+        {
+            $name=$request->get('name');
+            $server=$request->get('server');
+            $em = $this->getDoctrine()->getManager();
+            $character = $em->getRepository('WCUserBundle:Characters')->findOneBy(array('name'=>$name, 'server'=>$server));
+            if($character->getRank()=="Chef"){
+                return new JsonResponse(array('sucess' => false, 'why'=>"Chef"));
+            }
+            else{
+                $em->remove($character);
+                $em->flush();
+                return new JsonResponse(array('sucess' => true));
+            }
+        }
     }
 }
