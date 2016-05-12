@@ -71,15 +71,7 @@
             </table>
         </div>
         {% if droit == "Chef" %}
-            <div>
-                <h3>Ajout d'un nouveau membre</h3>
-                {{ form_start(formMember) }}
-                {{ form_errors(formMember) }}
-
-                {{ form_row(formMember.name) }}
-                {{ form_row(formMember.server) }}
-                {{ form_end(formMember) }}
-            </div>
+            {{ include("WCGuildBundle::addMember.html.twig") }}
         {% endif %}
         <br/>
         <h2 class="page-header">PU</h2>
@@ -144,15 +136,7 @@
             </table>
         </div>
         {% if droit == "Chef" %}
-            <div>
-                <h3>Rajouter un personnage dans la BlackListe <small>(Attention, tous les autres personnages de cette personne ne pourront plus rejoindre votre liste de PU)</small></h3>
-                {{ form_start(formBlack) }}
-                {{ form_errors(formBlack) }}
-
-                {{ form_row(formBlack.Name) }}
-                {{ form_row(formBlack.Server) }}
-                {{ form_end(formBlack) }}
-            </div>
+            {{ include("WCGuildBundle::addBlack.html.twig") }}
         {% endif %}
             <!--<br/>
             <h1 class="page-header">Guildes externes</h1>

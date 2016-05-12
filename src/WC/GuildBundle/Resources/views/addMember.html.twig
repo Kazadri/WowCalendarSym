@@ -1,0 +1,25 @@
+<div class="col-md-12">
+    <div class="well col-md-8">
+        <div style="overflow: hidden;">
+            <h3>Ajout d'un nouveau membre</h3>
+            {{ form_start(formMember, {'attr': {'class': 'form-horizontal col-md-12'}}) }}
+            {{ form_errors(formMember) }}
+            <div class="form-group">
+                {{ form_label(formMember.name, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formMember.name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formMember.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formMember.server, "Serveur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formMember.server) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formMember.server, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {{ form_widget(formMember.Ajouter, {'attr': {'class': 'btn btn-default col-sm-offset-2'}}) }}
+            {{ form_end(formMember) }}
+        </div>
+    </div>
+</div>

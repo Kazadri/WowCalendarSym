@@ -23,13 +23,38 @@
     {% endif %}
     <div class="container">
         <h1>Référencement d'une nouvelle guilde</h1>
-        <h2><small>Il vous faudra rendre un de vos personnage "chef" de la guilde, mais vous pourrez à tout moment léguer le lead à un autre personnage</small></h2>
-        {{ form_start(formGuild) }}
-        {{ form_errors(formGuild) }}
+        <div class="col-md-12">
+            <h2><small>Il vous faudra rendre un de vos personnage "chef" de la guilde, mais vous pourrez à tout moment léguer le lead à un autre personnage</small></h2>
+            <div class="col-md-8">
+                <div style="overflow: hidden;">
+                    {{ form_start(formGuild, {'attr': {'class': 'form-horizontal col-md-12'}}) }}
+                    {{ form_errors(formGuild) }}
 
-        {{ form_row(formGuild.name) }}
-        {{ form_row(formGuild.server) }}
-        {{ form_row(formGuild.Chef) }}
-        {{ form_end(formGuild) }}
+                    <div class="form-group">
+                        {{ form_label(formGuild.name, "Nom de la guilde", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                        {{ form_errors(formGuild.name) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formGuild.name, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formGuild.server, "Serveur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                        {{ form_errors(formGuild.server) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formGuild.server, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formGuild.Chef, "Chef", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                        {{ form_errors(formGuild.Chef) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formGuild.Chef, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    {{ form_widget(formGuild.save, {'attr': {'class': 'btn btn-default col-sm-offset-2'}}) }}
+                    {{ form_end(formGuild) }}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

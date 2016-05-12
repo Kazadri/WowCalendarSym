@@ -1,5 +1,26 @@
-<h1>Ajout d'un nouveau personnage</h1>
-<h2><small>Veuillez entrer le nom de votre personnage et selectionner le serveur dans la liste.</small></h2>
-<div class="well">
-    {{ form(formCreateCharacter) }}
+<div class="col-md-12">
+    <h1>Ajout d'un nouveau personnage</h1>
+    <h2><small>Veuillez entrer le nom de votre personnage et selectionner le serveur dans la liste.</small></h2>
+    <div class="well col-md-8">
+        <div style="overflow: hidden;">
+            {{ form_start(formCreateCharacter, {'attr': {'class': 'form-horizontal col-md-12'}}) }}
+            {{ form_errors(formCreateCharacter) }}
+            <div class="form-group">
+                {{ form_label(formCreateCharacter.name, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formCreateCharacter.name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formCreateCharacter.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formCreateCharacter.server, "Serveur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formCreateCharacter.server) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formCreateCharacter.server, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {{ form_widget(formCreateCharacter.save, {'attr': {'class': 'btn btn-default col-sm-offset-2'}}) }}
+            {{ form_end(formCreateCharacter) }}
+        </div>
+    </div>
 </div>

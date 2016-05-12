@@ -34,7 +34,7 @@ class GuildController extends Controller
                         'choices' => $realmsName,
                     )
                 )
-                ->add('ajouter', SubmitType::class)
+                ->add('Ajouter', SubmitType::class)
                 ->getForm();
             $formBlack = $this->get("form.factory")->createNamedBuilder("formBlack")
                 ->add('Name', TextType::class)
@@ -153,7 +153,7 @@ class GuildController extends Controller
                     'choices' => $myCharactersWithoutGuildNameServer,
                 )
             )
-            ->add('Créer', SubmitType::class)
+            ->add('save', SubmitType::class)
             ->getForm();
 
         //Handle
@@ -232,7 +232,7 @@ class GuildController extends Controller
                         'choices' => $myCharactersWithoutGuildNameServer,
                     )
                 )
-                ->add('Créer', SubmitType::class)
+                ->add('save', SubmitType::class)
                 ->getForm();
 
             //Handle

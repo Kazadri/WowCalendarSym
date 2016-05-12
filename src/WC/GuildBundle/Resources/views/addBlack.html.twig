@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <div class="well col-md-8">
+        <div style="overflow: hidden;">
+            <h3>Rajouter un personnage dans la BlackListe <small>(Attention, tous les autres personnages de cette personne ne pourront plus rejoindre votre liste de PU)</small></h3>
+            {{ form_start(formBlack, {'attr': {'class': 'form-horizontal col-md-12'}}) }}
+            {{ form_errors(formBlack) }}
+
+            <div class="form-group">
+                {{ form_label(formBlack.Name, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formBlack.Name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formBlack.Name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formBlack.Server, "Serveur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formBlack.Server) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formBlack.Server, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formBlack.Why, "Raison", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {{ form_errors(formBlack.Why) }}
+                <div class="col-sm-10">
+                    {{ form_widget(formBlack.Why, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {{ form_widget(formBlack.Ajouter, {'attr': {'class': 'btn btn-default col-sm-offset-2'}}) }}
+            {{ form_end(formBlack) }}
+        </div>
+    </div>
+</div>
